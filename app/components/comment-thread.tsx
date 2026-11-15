@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useFetcher } from "react-router";
+import { useEffect, useRef, useState } from "react";
+import { useFetcher, useSearchParams } from "react-router";
 import { toast } from "sonner";
 import { MessageSquare, Pencil, Reply, Trash2 } from "lucide-react";
 import { Button } from "~/components/ui/button";
@@ -203,8 +203,26 @@ function CommentItem({
   canPost: boolean;
   isReply: boolean;
 }) {
+  const [searchParams] = useSearchParams();
+  const replyToParam = Number(searchParams.get("replyTo"));
+  const isTargetComment =
+    !Number.isNaN(replyToParam) && replyToParam === comment.id;
   const [editing, setEditing] = useState(false);
-  const [replying, setReplying] = useState(false);
+  const [replying, setReplying] = useState(
+    Boolean(isTargetComment && canPost && !isReply)
+  );
+  const itemRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (isTargetComment) {
+      if (canPost && !isReply) {
+        setReplying(true);
+      }
+      requestAnimationFrame(() => {
+        itemRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+      });
+    }
+  }, [isTargetComment, canPost, isReply]);
 
   const isAuthor = currentUserId !== null && comment.author.id === currentUserId;
 
@@ -225,7 +243,15 @@ function CommentItem({
   }
 
   return (
-    <div className={cn("py-3", isReply && "border-l pl-4")}>
+    <div
+      ref={itemRef}
+      id={`comment-${comment.id}`}
+      className={cn(
+        "py-3 transition-colors",
+        isReply && "border-l pl-4",
+        isTargetComment && "rounded-md bg-primary/[0.06] px-3 -mx-3"
+      )}
+    >
       <div className="flex items-start gap-3">
         <UserAvatar
           name={comment.author.name}
