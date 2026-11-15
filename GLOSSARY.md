@@ -1,6 +1,6 @@
 # Cadence
 
-Cadence sells video courses to students. This glossary covers the language around buying, taking and refunding courses.
+Cadence sells video courses to students. This glossary covers the language around buying, taking, refunding, and being notified about courses.
 
 ## Language
 
@@ -92,3 +92,31 @@ A Refund where the money couldn't be sent. The Refund Request stays approved, be
 **Watch Limit**:
 The amount of Watched time on a course past which a Student can no longer get a Refund, because they've had the course.
 _Avoid_: Watch cap, Viewing threshold
+
+### Notifications
+
+**Notification**:
+A message telling a Recipient about something that happened on Cadence that concerns them.
+_Avoid_: Alert, Event, Toast, Message
+
+**Recipient**:
+The person a Notification is for. One action can produce Notifications for several Recipients, and each Recipient has their own Notification.
+_Avoid_: Subscriber, Target, User
+
+**Notification Feed**:
+The list inside Cadence where a Recipient sees and opens their Notifications.
+_Avoid_: Inbox, Notification center, Bell menu, Activity log
+
+**Unread Notification**:
+A Notification in a Recipient's Notification Feed that they have not yet opened or marked as read.
+_Avoid_: New, Unseen, Pending
+
+**Read Notification**:
+A Notification in a Recipient's Notification Feed that they have opened or marked as read.
+_Avoid_: Seen, Viewed, Dismissed, Acknowledged
+
+**Digest**:
+A scheduled Notification sent to an Instructor that summarises activity and performance across their courses over a chosen period (such as weekly, monthly, or yearly), rather than notifying them for each event one by one.
+_Avoid_: Report, Summary email, Batch notification, Newsletter
+
+
